@@ -11,7 +11,7 @@ class OrderStoreRequest extends FormRequest
      *
      * @return bool
      */
-    public function authorize()
+    public function authorize(): bool
     {
         return true;
     }
@@ -24,9 +24,8 @@ class OrderStoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'user_id'                       => ['numeric', 'exists:users,id', 'required'],
             'receiver_address'              => ['string', 'max:70', 'required'],
-            'orderProducts'                 => ['array'],
+            'orderProducts'                 => ['array', 'required'],
             'orderProducts.*.product_id'    => ['integer', 'exists:products,id', 'required'],
             'orderProducts.*.quantity'      => ['integer', 'min:1', 'max:100', 'required'],
         ];

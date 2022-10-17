@@ -6,13 +6,11 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\OrderStoreRequest;
 use App\Http\Requests\OrderUpdateRequest;
 use App\Models\Order;
-use App\Models\Product;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
-use Illuminate\Http\Response;
+
 
 class OrderController extends Controller
 {
@@ -42,7 +40,7 @@ class OrderController extends Controller
      * Store a newly created Order in storage.
      *
      * @param OrderStoreRequest $request
-     * @return string
+     * @return RedirectResponse
      */
     public function store(OrderStoreRequest $request)
     {

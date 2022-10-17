@@ -19,12 +19,12 @@ class DatabaseSeeder extends Seeder
 
     public function run()
     {
-//        $this->call(RolesTableSeeder::class);
-//        $this->call(UsersTableSeeder::class);
-//        User::factory(100)->create()->each(function ($user)
-//        {
-//            $user->roles()->attach(Role::IS_USER);
-//        });
+        $this->call(RolesTableSeeder::class);
+        $this->call(UsersTableSeeder::class);
+        User::factory(100)->create()->each(function ($user)
+        {
+            $user->roles()->attach(Role::IS_USER);
+        });
         Product::factory(200)->create();
 
         Order::factory(200)->create()->each(function ($order)
