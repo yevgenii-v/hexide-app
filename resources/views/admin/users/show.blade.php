@@ -35,7 +35,8 @@
     </nav>
     <!-- /.navbar -->
 
-@include('components.admin.sidebar')
+    <!-- Main Sidebar Container -->
+    @include('components.admin.sidebar')
 
 <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
@@ -49,11 +50,11 @@
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item">
-                                <a href="{{ route('admin.users.index') }}">
-                                    {{ __('Користувачі') }}
+                                <a href="{{ route('admin.users.index', app()->getLocale()) }}">
+                                    {{ __('admin/users.users') }}
                                 </a>
                             </li>
-                            <li class="breadcrumb-item active">Детальніше</li>
+                            <li class="breadcrumb-item active">{{ __('admin/buttons.show') }}</li>
                         </ol>
                     </div><!-- /.col -->
                 </div><!-- /.row -->
@@ -68,42 +69,42 @@
                     <div class="col-8 mt-0 mx-auto">
                         <div class="card">
                             <div class="card-header">
-                                {{ __('Інформація') }}
+                                {{ __('admin/users.info') }}
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body">
                                 <ul>
-                                    <li>{{ __('Ім\'я').': '.$user->name }}</li>
+                                    <li>{{ __('admin/users.name').': '.$user->name }}</li>
                                     <li><span>Email: </span>{{ $user->email }}</li>
-                                    <li>{{ __('Ролі').': '. implode(', ', $user->roles()->get()->pluck('name')->toArray() ) }}</li>
+                                    <li>{{ __('admin/users.roles').': '. implode(', ', $user->roles()->get()->pluck('name_'.app()->getLocale())->toArray() ) }}</li>
                                 </ul>
                                 <br>
-                                <h4>Історія замовлень:</h4>
+                                <h4>{{ __('admin/users.history') }}</h4>
                                 <table class="table table-bordered table-hover">
                                     <thead>
                                     <tr>
-                                        <th>{{ __('Номер Замовлення') }}</th>
-                                        <th>{{ __('Адреса отримувача') }}</th>
-                                        <th>{{ __('Статус') }}</th>
+                                        <th>{{ __('admin/orders.order_id') }}</th>
+                                        <th>{{ __('admin/orders.receiver_address') }}</th>
+                                        <th>{{ __('admin/orders.status') }}</th>
                                     </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach($orders as $order)
-                                            <tr>
-                                                <td>{{ $order->id }}</td>
-                                                <td>{{ $order->receiver_address }}</td>
-                                                <td>{{ $order->status }}</td>
-                                                <td>
-                                                    <a href="{{ route('admin.orders.show', $order->id) }}">
-                                                        <button class="btn btn-info"
-                                                                title="{{ __('Детальніше') }}"
-                                                                type="button">
-                                                            <i class="fas fa-eye"></i>
-                                                        </button>
-                                                    </a>
-                                                </td>
-                                            </tr>
-                                        @endforeach
+                                    @foreach($orders as $order)
+                                        <tr>
+                                            <td>{{ $order->id }}</td>
+                                            <td>{{ $order->receiver_address }}</td>
+                                            <td>{{ __('admin/orders.'. $order->status) }}</td>
+                                            <td>
+                                                <a href="{{ route('admin.orders.show', [app()->getLocale(), $order->id]) }}">
+                                                    <button class="btn btn-info"
+                                                            title="{{ __('admin/buttons.show') }}"
+                                                            type="button">
+                                                        <i class="fas fa-eye"></i>
+                                                    </button>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    @endforeach
                                     </tbody>
                                 </table>
                             </div>

@@ -44,11 +44,11 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1 class="m-0">{{ __('Користувачі') }}</h1>
+                        <h1 class="m-0">{{ __('admin/users.users') }}</h1>
                     </div><!-- /.col -->
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item active">{{ __('Користувачі') }}</li>
+                            <li class="breadcrumb-item active">{{ __('admin/users.users') }}</li>
                         </ol>
                     </div><!-- /.col -->
                 </div><!-- /.row -->
@@ -63,7 +63,7 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header">
-                                <h3 class="card-title">{{ __('Користувачі') }}</h3>
+                                <h3 class="card-title">{{ __('admin/users.users') }}</h3>
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body">
@@ -71,13 +71,13 @@
                                     <thead>
                                     <tr>
                                         <th>ID</th>
-                                        <th>{{ __('Ім\'я') }}</th>
+                                        <th>{{ __('admin/users.name') }}</th>
                                         <th>Email</th>
-                                        <th>{{ __('Ролі') }}</th>
+                                        <th>{{ __('admin/users.roles') }}</th>
                                         <th>
-                                            <a href="{{ route('admin.users.create') }}">
+                                            <a href="{{ route('admin.users.create', app()->getLocale()) }}">
                                                 <button class="btn btn-primary"
-                                                        title="{{ __('Створити') }}"
+                                                        title="{{ __('admin/buttons.create') }}"
                                                         type="button">
                                                     <i class="fas fa-plus"></i>
                                                 </button>
@@ -91,27 +91,29 @@
                                                 <td>{{ $user->id }}</td>
                                                 <td>{{ $user->name }}</td>
                                                 <td>{{ $user->email }}</td>
-                                                <td>{{ implode(', ', $user->roles()->get()->pluck('name')->toArray()) }}</td>
                                                 <td>
-                                                    <form action="{{ route('admin.users.destroy', $user->id) }}" method="POST">
+                                                    {{ implode(', ', $user->roles()->get()->pluck('name_'.app()->getLocale())->toArray()) }}
+                                                </td>
+                                                <td>
+                                                    <form action="{{ route('admin.users.destroy', [app()->getLocale(), $user->id]) }}" method="POST">
                                                         @csrf
                                                         @method('DELETE')
-                                                        <a href="{{ route('admin.users.show', $user->id) }}">
+                                                        <a href="{{ route('admin.users.show', [app()->getLocale(), $user->id]) }}">
                                                             <button class="btn btn-info"
-                                                                    title="{{ __('Детальніше') }}"
+                                                                    title="{{ __('admin/buttons.show') }}"
                                                                     type="button">
                                                                 <i class="fas fa-eye"></i>
                                                             </button>
                                                         </a>
-                                                        <a href="{{ route('admin.users.edit', $user->id) }}">
+                                                        <a href="{{ route('admin.users.edit', [app()->getLocale(), $user->id]) }}">
                                                             <button class="btn btn-warning"
-                                                                    title="{{ __('Редагувати') }}"
+                                                                    title="{{ __('admin/buttons.edit') }}"
                                                                     type="button">
                                                                 <i class="fas fa-pen"></i>
                                                             </button>
                                                         </a>
                                                         <button class="btn btn-danger"
-                                                                title="{{ __('Видалити') }}"
+                                                                title="{{ __('admin/buttons.delete') }}"
                                                                 onclick="return confirm('Ви впевнені, що хотете видалити цього користувача?')"
                                                                 type="submit">
                                                             <i class="fas fa-solid fa-trash"></i>

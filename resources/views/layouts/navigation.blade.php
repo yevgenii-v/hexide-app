@@ -18,7 +18,7 @@
                 </div>
                 @if(auth()->user()->hasAnyRole(\App\Models\Role::IS_ADMIN))
                     <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                        <x-nav-link :href="route('admin.dashboard')">
+                        <x-nav-link :href="route('admin.dashboard', app()->getLocale())">
                             {{ __('Admin Panel') }}
                         </x-nav-link>
                     </div>

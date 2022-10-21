@@ -3,7 +3,7 @@
         <div class="row">
             <div class="col-sm-12 col-md-5">
                 <div class="dataTables_info" id="example2_info" role="status" aria-live="polite">
-                    Showing {{ $paginator->currentPage() }} to {{ $paginator->count() }} of {{ $paginator->total() }} entries
+                    {{ __('pagination.showing_pages', ['currentPage' => $paginator->currentPage(), 'count' => $paginator->count(), 'total' => $paginator->total()]) }}
                 </div>
             </div>
             <div class="col-sm-12 col-md-7">
@@ -12,13 +12,13 @@
                         @if ($paginator->onFirstPage())
                             <li class="paginate_button page-item previous disabled" id="example2_previous">
                                 <a href="#" aria-controls="example2" data-dt-idx="0" tabindex="0" class="page-link">
-                                    Previous
+                                    {{ __('pagination.previous') }}
                                 </a>
                             </li>
                         @else
                             <li class="paginate_button page-item previous" id="example2_previous">
                                 <a href="#" aria-controls="example2" data-dt-idx="0" tabindex="0" class="page-link">
-                                    Previous
+                                    {{ __('pagination.previous') }}
                                 </a>
                             </li>
                         @endif
@@ -49,13 +49,13 @@
                         @if ($paginator->hasMorePages())
                             <li class="paginate_button page-item next" id="example2_next">
                                 <a href="{{ $paginator->nextPageUrl() }}" aria-controls="example2" data-dt-idx="7" tabindex="0" class="page-link">
-                                    Next
+                                    {{ __('pagination.next') }}
                                 </a>
                             </li>
                         @else
                             <li class="paginate_button page-item next" id="example2_next">
                                 <a href="#" aria-controls="example2" data-dt-idx="7" tabindex="0" class="page-link disabled">
-                                    Next
+                                    {{ __('pagination.next') }}
                                 </a>
                             </li>
                         @endif

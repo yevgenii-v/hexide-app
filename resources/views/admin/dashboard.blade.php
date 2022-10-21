@@ -42,11 +42,11 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1 class="m-0">{{ __('Панель керування') }}</h1>
+                        <h1 class="m-0">{{ __('admin/dashboard.dashboard') }}</h1>
                     </div><!-- /.col -->
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item active">{{ __('Панель керування') }}</li>
+                            <li class="breadcrumb-item active">{{ __('admin/dashboard.dashboard') }}</li>
                         </ol>
                     </div><!-- /.col -->
                 </div><!-- /.row -->
@@ -58,8 +58,8 @@
         <section class="content">
             <div class="card">
                 <div class="card-body">
-                    {{ __('Ласко просимо, ') . auth()->user()->name }}
-                </div><!-- /.card-body -->
+                    {{ __('admin/dashboard.welcome') . auth()->user()->name }}
+                </div>
             </div>
         </section>
         <!-- /.content -->

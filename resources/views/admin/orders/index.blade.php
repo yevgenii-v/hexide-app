@@ -44,11 +44,11 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1 class="m-0">{{ __('Замовлення') }}</h1>
+                        <h1 class="m-0">{{ __('admin/orders.order') }}</h1>
                     </div><!-- /.col -->
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item active">{{ __('Замовлення') }}</li>
+                            <li class="breadcrumb-item active">{{ __('admin/orders.order') }}</li>
                         </ol>
                     </div><!-- /.col -->
                 </div><!-- /.row -->
@@ -63,21 +63,21 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header">
-                                <h3 class="card-title">{{ __('Замовлення') }}</h3>
+                                <h3 class="card-title">{{ __('admin/orders.order') }}</h3>
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body">
                                 <table class="table table-bordered table-hover">
                                     <thead>
                                     <tr>
-                                        <th>{{ __('ID замовлення') }}</th>
-                                        <th>{{ __('Отримувач') }}</th>
-                                        <th>{{ __('Адреса отримувача') }}</th>
-                                        <th>{{ __('Статус') }}</th>
+                                        <th>{{ __('admin/orders.order_id') }}</th>
+                                        <th>{{ __('admin/orders.receiver') }}</th>
+                                        <th>{{ __('admin/orders.receiver_address') }}</th>
+                                        <th>{{ __('admin/orders.status') }}</th>
                                         <th>
-                                            <a href="{{ route('admin.orders.create') }}">
+                                            <a href="{{ route('admin.orders.create', app()->getLocale()) }}">
                                                 <button class="btn btn-primary"
-                                                        title="{{ __('Створити') }}"
+                                                        title="{{ __('admin/buttons.create') }}"
                                                         type="button">
                                                     <i class="fas fa-plus"></i>
                                                 </button>
@@ -91,27 +91,27 @@
                                             <td>{{ $order->id }}</td>
                                             <td>{{ $order->user->name }}</td>
                                             <td>{{ $order->receiver_address }}</td>
-                                            <td>{{ __($order->status) }}</td>
+                                            <td>{{ __('admin/orders.'.$order->status) }}</td>
                                             <td>
-                                                <form action="{{ route('admin.orders.destroy', $order->id) }}" method="POST">
+                                                <form action="{{ route('admin.orders.destroy', [app()->getLocale(), $order->id]) }}" method="POST">
                                                 @method('DELETE')
                                                 @csrf
-                                                    <a href="{{ route('admin.orders.show', $order->id) }}">
+                                                    <a href="{{ route('admin.orders.show', [app()->getLocale(), $order->id]) }}">
                                                         <button class="btn btn-info"
-                                                                title="{{ __('Детальніше') }}"
+                                                                title="{{ __('admin/buttons.show') }}"
                                                                 type="button">
                                                             <i class="fas fa-eye"></i>
                                                         </button>
                                                     </a>
-                                                    <a href="{{ route('admin.orders.edit', $order->id) }}">
+                                                    <a href="{{ route('admin.orders.edit', [app()->getLocale(), $order->id]) }}">
                                                         <button class="btn btn-warning"
-                                                                title="{{ __('Редагувати') }}"
+                                                                title="{{ __('admin/buttons.edit') }}"
                                                                 type="button">
                                                             <i class="fas fa-pen"></i>
                                                         </button>
                                                     </a>
                                                     <button class="btn btn-danger"
-                                                            title="{{ __('Видалити') }}"
+                                                            title="{{ __('admin/buttons.delete') }}"
                                                             onclick="return confirm('Ви впевнені, що хотете видалити це замовлення?')"
                                                             type="submit"
                                                     >

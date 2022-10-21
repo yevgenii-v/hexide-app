@@ -1,9 +1,9 @@
 <div>
-    <form action="{{ route('admin.orders.update', $order) }}" method="POST">
+    <form action="{{ route('admin.orders.update', [app()->getLocale(), $order]) }}" method="POST">
     @csrf
     @method('PATCH')
         <ul>
-            <li>{{ __('Ім\'я').': '.$order->user->name }}</li>
+            <li>{{ __('admin/users.name').': '.$order->user->name }}</li>
             <li><span>Email: </span>{{ $order->user->email }}</li>
             <li>
                 <div class="w-50">
@@ -16,9 +16,8 @@
             </li>
             <li>
                 <select class="form-control w-50" name="status">
-                        <option value="">-- {{ __('Choose order status') }} --</option>
                     @foreach($statuses as $status)
-                        <option value="{{ $status }}" {{ $order->status === $status ? 'selected' : '' }}> {{ __($status) }} </option>
+                        <option value="{{ $status }}" {{ $order->status === $status ? 'selected' : '' }}> {{ __('admin/orders.'.$status) }} </option>
                     @endforeach
                 </select>
             </li>
@@ -26,11 +25,11 @@
     <table class="table table-bordered table-hover">
         <thead>
         <tr>
-            <th>{{ __('ID товару') }}</th>
-            <th>{{ __('Назва товару') }}</th>
-            <th>{{ __('Кількість') }}</th>
-            <th>{{ __('Ціна за од.') }}</th>
-            <th>{{ __('Сума, ₴') }}</th>
+            <th>{{ __('admin/products.product_id') }}</th>
+            <th>{{ __('admin/products.title') }}</th>
+            <th>{{ __('admin/products.quantity') }}</th>
+            <th>{{ __('admin/products.price_per') }}</th>
+            <th>{{ __('admin/products.total') }}</th>
         </tr>
         </thead>
         <tbody>
@@ -49,7 +48,7 @@
                     <td>
                         <button wire:click="delete({{ $order->id }}, '{{ $product->id }}')"
                                 class="btn btn-danger"
-                                title="{{ __('Видалити') }}"
+                                title="{{ __('admin/buttons.delete') }}"
                                 onclick="return confirm('Ви впевнені, що хотете видалити цей товар?')"
                         >
                             <i class="fas fa-solid fa-trash"></i>
@@ -61,6 +60,6 @@
         </tbody>
     </table>
     <br>
-    <button type="submit" class=" align-end btn btn-primary">{{ __('Оновити') }}</button>
+    <button type="submit" class=" align-end btn btn-primary">{{ __('admin/buttons.update') }}</button>
     </form>
 </div>

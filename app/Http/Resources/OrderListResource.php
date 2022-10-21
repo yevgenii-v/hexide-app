@@ -17,10 +17,13 @@ class OrderListResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'id' => $this->id,
-            'title' => $this->title,
-            'price' => $this->price,
-            'quantity' => $this->whenPivotLoaded('order_product', function () {
+            'id'        => $this->id,
+            'title_ua'  => $this->title_ua,
+            'title_en'  => $this->title_en,
+            'description_ua' => $this->description_ua,
+            'description_en' => $this->description_en,
+            'price'     => $this->price,
+            'quantity'  => $this->whenPivotLoaded('order_product', function () {
                 return $this->pivot->quantity;
             }),
         ];

@@ -35,7 +35,8 @@
     </nav>
     <!-- /.navbar -->
 
-@include('components.admin.sidebar')
+    <!-- Main Sidebar Container -->
+    @include('components.admin.sidebar')
 
 <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
@@ -44,16 +45,16 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1 class="m-0">{{ $product->title }}</h1>
+                        <h1 class="m-0">{{ $product->{'title_'.app()->getLocale()} }}</h1>
                     </div><!-- /.col -->
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item">
-                                <a href="{{ route('admin.products.index') }}">
-                                    {{ __('Товари') }}
+                                <a href="{{ route('admin.products.index', app()->getLocale()) }}">
+                                    {{ __('admin/sidebar.products') }}
                                 </a>
                             </li>
-                            <li class="breadcrumb-item active">Детальніше</li>
+                            <li class="breadcrumb-item active">{{ __('admin/buttons.show') }}</li>
                         </ol>
                     </div><!-- /.col -->
                 </div><!-- /.row -->
@@ -68,14 +69,14 @@
                     <div class="col-8 mt-0 mx-auto">
                         <div class="card">
                             <div class="card-header">
-                                {{ __('Інформація') }}
+                                {{ __('admin/products.products.show') }}
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body">
                                 <ul>
-                                    <li>{{ __('Ім\'я').': '.$product->title }}</li>
-                                    <li><span>Slug: </span>{{ $product->slug }}</li>
-                                    <li>{{ __('Ціна, ₴').': '. $product->price }}</li>
+                                    <li>{{ __('admin/products.title').': '.$product->{'title_'.app()->getLocale()} }}</li>
+                                    <li>{{ __('admin/products.description').': '.$product->{'description_'.app()->getLocale()} }}</li>
+                                    <li>{{ __('admin/products.price').': '. $product->price }}</li>
                                 </ul>
                             </div>
                             <!-- /.card-body -->

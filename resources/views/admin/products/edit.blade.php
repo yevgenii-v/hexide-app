@@ -35,7 +35,8 @@
     </nav>
     <!-- /.navbar -->
 
-@include('components.admin.sidebar')
+    <!-- Main Sidebar Container -->
+    @include('components.admin.sidebar')
 
 <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
@@ -44,16 +45,16 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1 class="m-0">{{ __('Редагувати товар') }}</h1>
+                        <h1 class="m-0">{{ __('admin/products.products.edit') }}</h1>
                     </div><!-- /.col -->
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item">
-                                <a href="{{ route('admin.products.index') }}">
-                                    {{ __('Товари') }}
+                                <a href="{{ route('admin.products.index', app()->getLocale()) }}">
+                                    {{ __('admin/sidebar.products') }}
                                 </a>
                             </li>
-                            <li class="breadcrumb-item active">{{ __('Редагування') }}</li>
+                            <li class="breadcrumb-item active">{{ __('admin/buttons.edit') }}</li>
                         </ol>
                     </div><!-- /.col -->
                 </div><!-- /.row -->
@@ -77,31 +78,55 @@
                         @endif
                         <div class="card">
                             <div class="card-header">
-                                <h3 class="card-title">{{ __('Редагувати товар') }}</h3>
+                                <h3 class="card-title">{{ __('admin/products.products.edit') }}</h3>
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body">
-                                <form action="{{ route('admin.products.update', $product->id) }}" method="POST">
+                                <form action="{{ route('admin.products.update', [app()->getLocale(), $product->id]) }}" method="POST">
                                     @method('PATCH')
                                     @csrf
                                     <div class="input-group mb-3">
                                         <input type="text"
                                                class="form-control"
-                                               placeholder="{{ __('Назва') }}"
-                                               name="title"
-                                               value="{{ $product->title }}"
+                                               placeholder="{{ __('admin/products.edit.title.ua') }}"
+                                               name="title_ua"
+                                               value="{{ $product->title_ua }}"
                                         >
                                     </div>
                                     <div class="input-group mb-3">
                                         <input type="text"
                                                class="form-control"
-                                               placeholder="{{ __('Ціна') }}"
+                                               placeholder="{{ __('admin/products.edit.desc.ua') }}"
+                                               name="description_ua"
+                                               value="{{ $product->description_ua }}"
+                                        >
+                                    </div>
+                                    <div class="input-group mb-3">
+                                        <input type="text"
+                                               class="form-control"
+                                               placeholder="{{ __('admin/products.edit.title.en') }}"
+                                               name="title_en"
+                                               value="{{ $product->title_en }}"
+                                        >
+                                    </div>
+                                    <div class="input-group mb-3">
+                                        <input type="text"
+                                               class="form-control"
+                                               placeholder="{{ __('admin/products.edit.desc.en') }}"
+                                               name="description_en"
+                                               value="{{ $product->description_en }}"
+                                        >
+                                    </div>
+                                    <div class="input-group mb-3">
+                                        <input type="text"
+                                               class="form-control"
+                                               placeholder="{{ __('admin/products.price') }}"
                                                name="price"
                                                value="{{ $product->price }}"
                                                autocomplete="off"
                                         >
                                     </div>
-                                    <button type="submit" class=" align-end btn btn-primary">{{ __('Оновити') }}</button>
+                                    <button type="submit" class=" align-end btn btn-primary">{{ __('admin/buttons.update') }}</button>
                                 </form>
                             </div>
                             <!-- /.card-body -->

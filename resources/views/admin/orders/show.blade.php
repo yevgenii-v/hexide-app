@@ -35,7 +35,8 @@
     </nav>
     <!-- /.navbar -->
 
-@include('components.admin.sidebar')
+    <!-- Main Sidebar Container -->
+    @include('components.admin.sidebar')
 
 <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
@@ -44,16 +45,16 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1 class="m-0">{{ $order->title }}</h1>
+                        <h1 class="m-0">{{ __('admin/orders.order.show') }}</h1>
                     </div><!-- /.col -->
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item">
-                                <a href="{{ route('admin.orders.index') }}">
-                                    {{ __('Замовлення') }}
+                                <a href="{{ route('admin.orders.index', app()->getLocale()) }}">
+                                    {{ __('admin/orders.order') }}
                                 </a>
                             </li>
-                            <li class="breadcrumb-item active">Детальніше</li>
+                            <li class="breadcrumb-item active">{{ __('admin/buttons.show') }}</li>
                         </ol>
                     </div><!-- /.col -->
                 </div><!-- /.row -->
@@ -68,31 +69,33 @@
                     <div class="col-8 mt-0 mx-auto">
                         <div class="card">
                             <div class="card-header">
-                                {{ __('Інформація') }}
+                                {{ __('admin/orders.order.show') }}
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body">
                                 <ul>
-                                    <li>{{ __('Отримувач').': '.$order->user->name }}</li>
-                                    <li>{{ __('Адреса отримувача').': '.$order->receiver_address }}</li>
-                                    <li>{{ __('Статус').': '.__($order->status) }}</li>
+                                    <li>{{ __('admin/orders.receiver').': '.$order->user->name }}</li>
+                                    <li>{{ __('admin/orders.receiver_address').': '.$order->receiver_address }}</li>
+                                    <li>{{ __('admin/orders.status').': '.__('admin/orders.'.$order->status) }}</li>
                                 </ul>
                                 <br>
                                 <table class="table table-bordered table-hover">
                                     <thead>
                                     <tr>
-                                        <th>{{ __('ID товару') }}</th>
-                                        <th>{{ __('Назва товару') }}</th>
-                                        <th>{{ __('Кількість') }}</th>
-                                        <th>{{ __('Ціна за од.') }}</th>
-                                        <th>{{ __('Сума, ₴') }}</th>
+                                        <th>{{ __('admin/orders.order_id') }}</th>
+                                        <th>{{ __('admin/products.title') }}</th>
+                                        <th>{{ __('admin/products.description') }}</th>
+                                        <th>{{ __('admin/products.quantity') }}</th>
+                                        <th>{{ __('admin/products.price_per') }}</th>
+                                        <th>{{ __('admin/products.total') }}</th>
                                     </tr>
                                     </thead>
                                     <tbody>
                                     @foreach($productList as $product)
                                         <tr>
                                             <td>{{ $product->id }}</td>
-                                            <td>{{ $product->title }}</td>
+                                            <td>{{ $product->{'title_'.app()->getLocale()} }}</td>
+                                            <td>{{ $product->{'description_'.app()->getLocale()} }}</td>
                                             <td>{{ $product->pivot->quantity }}</td>
                                             <td>{{ $product->price }}</td>
                                             <td>{{ $product->price * $product->pivot->quantity }}</td>

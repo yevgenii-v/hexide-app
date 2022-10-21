@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'previous' => 'Previous',
-    'next' => 'Next',
-    'showing_pages' => 'Showing :currentPage to :count of :total entries',
+    'previous' => 'Попередня',
+    'next' => 'Наступна',
+    'showing_pages' => 'Показано :currentPage сторінку, по :count записів. Всього :total',
 ];

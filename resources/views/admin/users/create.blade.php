@@ -44,16 +44,16 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1 class="m-0">{{ __('Створення користувача') }}</h1>
+                        <h1 class="m-0">{{ __('admin/users.user.create') }}</h1>
                     </div><!-- /.col -->
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item">
-                                <a href="{{ route('admin.users.index') }}">
-                                    {{ __('Користувачі') }}
+                                <a href="{{ route('admin.users.index', app()->getLocale()) }}">
+                                    {{ __('admin/users.users') }}
                                 </a>
                             </li>
-                            <li class="breadcrumb-item active">Створення</li>
+                            <li class="breadcrumb-item active">{{ __('admin/buttons.create') }}</li>
                         </ol>
                     </div><!-- /.col -->
                 </div><!-- /.row -->
@@ -77,16 +77,16 @@
                         @endif
                         <div class="card">
                             <div class="card-header">
-                                <h3 class="card-title">{{ __('Створення користувача') }}</h3>
+                                <h3 class="card-title">{{ __('admin/users.user.create') }}</h3>
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body">
-                                <form action="{{ route('admin.users.store') }}" method="POST">
+                                <form action="{{ route('admin.users.store', app()->getLocale()) }}" method="POST">
                                     @csrf
                                     <div class="input-group mb-3">
                                         <input type="text"
                                                class="form-control"
-                                               placeholder="{{ __('Ім\'я') }}"
+                                               placeholder="{{ __('admin/users.name') }}"
                                                name="name"
                                                autocomplete="off"
                                         >
@@ -98,32 +98,32 @@
                                                name="email"
                                         >
                                     </div>
-                                    <label for="roles">{{ __('Ролі') }}</label>
+                                    <label for="roles">{{ __('admin/users.roles') }}</label>
                                     <br>
                                     @foreach($roles as $role)
                                         <input type="checkbox"
                                                name="roles[]"
                                                value="{{ $role->id }}"
                                         >
-                                        <span> {{ $role->name }} &nbsp</span>
+                                        <span> {{ $role->{'name_'.app()->getLocale()} }} &nbsp</span>
                                     @endforeach
 
                                     <div class="input-group mb-3">
                                         <input type="password"
                                                class="form-control"
-                                               placeholder="{{ __('Пароль') }}"
+                                               placeholder="{{ __('admin/users.password') }}"
                                                name="password"
                                         >
                                     </div>
                                     <div class="input-group mb-3">
                                         <input type="password"
                                                class="form-control"
-                                               placeholder="{{ __('Підтвердіть пароль') }}"
+                                               placeholder="{{ __('admin/users.pass_confirm') }}"
                                                name="password_confirmation"
                                         >
                                     </div>
                                     <br><br>
-                                    <button type="submit" class=" align-end btn btn-primary">{{ __('Створити') }}</button>
+                                    <button type="submit" class=" align-end btn btn-primary">{{ __('admin/buttons.create') }}</button>
                                 </form>
                             </div>
                             <!-- /.card-body -->

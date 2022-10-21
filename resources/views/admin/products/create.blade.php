@@ -44,16 +44,16 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1 class="m-0">{{ __('Новий товар') }}</h1>
+                        <h1 class="m-0">{{ __('admin/products.products.create') }}</h1>
                     </div><!-- /.col -->
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item">
-                                <a href="{{ route('admin.products.index') }}">
-                                    {{ __('Товари') }}
+                                <a href="{{ route('admin.products.index', app()->getLocale()) }}">
+                                    {{ __('admin/sidebar.products') }}
                                 </a>
                             </li>
-                            <li class="breadcrumb-item active">{{ __('Створення') }}</li>
+                            <li class="breadcrumb-item active">{{ __('admin/buttons.create') }}</li>
                         </ol>
                     </div><!-- /.col -->
                 </div><!-- /.row -->
@@ -77,28 +77,49 @@
                         @endif
                         <div class="card">
                             <div class="card-header">
-                                <h3 class="card-title">{{ __('Новий товар') }}</h3>
+                                <h3 class="card-title">{{ __('admin/products.products.create') }}</h3>
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body">
-                                <form action="{{ route('admin.products.store') }}" method="POST">
+                                <form action="{{ route('admin.products.store', app()->getLocale()) }}" method="POST">
                                     @csrf
                                     <div class="input-group mb-3">
                                         <input type="text"
                                                class="form-control"
-                                               placeholder="{{ __('Назва') }}"
-                                               name="title"
+                                               placeholder="{{ __('admin/products.edit.title.ua') }}"
+                                               name="title_ua"
                                         >
                                     </div>
                                     <div class="input-group mb-3">
                                         <input type="text"
                                                class="form-control"
-                                               placeholder="{{ __('Ціна') }}"
+                                               placeholder="{{ __('admin/products.edit.desc.ua') }}"
+                                               name="description_ua"
+                                        >
+                                    </div>
+                                    <div class="input-group mb-3">
+                                        <input type="text"
+                                               class="form-control"
+                                               placeholder="{{ __('admin/products.edit.title.en') }}"
+                                               name="title_en"
+                                        >
+                                    </div>
+                                    <div class="input-group mb-3">
+                                        <input type="text"
+                                               class="form-control"
+                                               placeholder="{{ __('admin/products.edit.desc.en') }}"
+                                               name="description_en"
+                                        >
+                                    </div>
+                                    <div class="input-group mb-3">
+                                        <input type="text"
+                                               class="form-control"
+                                               placeholder="{{ __('admin/products.price') }}"
                                                name="price"
                                                autocomplete="off"
                                         >
                                     </div>
-                                    <button type="submit" class=" align-end btn btn-primary">{{ __('Створити') }}</button>
+                                    <button type="submit" class=" align-end btn btn-primary">{{ __('admin/buttons.create') }}</button>
                                 </form>
                             </div>
                             <!-- /.card-body -->

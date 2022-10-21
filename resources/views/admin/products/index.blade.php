@@ -44,11 +44,11 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1 class="m-0">{{ __('Товари') }}</h1>
+                        <h1 class="m-0">{{ __('admin/sidebar.products') }}</h1>
                     </div><!-- /.col -->
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item active">{{ __('Товари') }}</li>
+                            <li class="breadcrumb-item active">{{ __('admin/sidebar.products') }}</li>
                         </ol>
                     </div><!-- /.col -->
                 </div><!-- /.row -->
@@ -63,7 +63,7 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header">
-                                <h3 class="card-title">{{ __('Товари') }}</h3>
+                                <h3 class="card-title">{{ __('admin/sidebar.products') }}</h3>
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body">
@@ -71,13 +71,13 @@
                                     <thead>
                                     <tr>
                                         <th>ID</th>
-                                        <th>{{ __('Назва товару') }}</th>
-                                        <th>Slug</th>
-                                        <th>{{ __('Ціна, ₴') }}</th>
+                                        <th>{{ __('admin/products.title') }}</th>
+                                        <th>{{ __('admin/products.description') }}</th>
+                                        <th>{{ __('admin/products.price_per') }}</th>
                                         <th>
-                                            <a href="{{ route('admin.products.create') }}">
+                                            <a href="{{ route('admin.products.create', app()->getLocale()) }}">
                                                 <button class="btn btn-primary"
-                                                        title="{{ __('Створити') }}"
+                                                        title="{{ __('admin/buttons.create') }}"
                                                         type="button">
                                                     <i class="fas fa-plus"></i>
                                                 </button>
@@ -87,31 +87,31 @@
                                     </thead>
                                     <tbody>
                                     @foreach($products as $product)
-                                        <form action="{{ route('admin.products.destroy', $product->id) }}" method="POST">
+                                        <form action="{{ route('admin.products.destroy', [app()->getLocale(), $product->id]) }}" method="POST">
                                             @csrf
                                             @method('DELETE')
                                             <tr>
                                                 <td>{{ $product->id }}</td>
-                                                <td>{{ $product->title }}</td>
-                                                <td>{{ $product->slug }}</td>
+                                                <td>{{ $product->{'title_'.app()->getLocale()} }}</td>
+                                                <td>{{ $product->{'description_'.app()->getLocale()} }}</td>
                                                 <td>{{ $product->price }}</td>
                                                 <td>
-                                                    <a href="{{ route('admin.products.show', $product->id) }}">
+                                                    <a href="{{ route('admin.products.show', [app()->getLocale(), $product->id]) }}">
                                                         <button class="btn btn-info"
-                                                                title="{{ __('Детальніше') }}"
+                                                                title="{{ __('admin/buttons.show') }}"
                                                                 type="button">
                                                             <i class="fas fa-eye"></i>
                                                         </button>
                                                     </a>
-                                                    <a href="{{ route('admin.products.edit', $product->id) }}">
+                                                    <a href="{{ route('admin.products.edit', [app()->getLocale(), $product->id]) }}">
                                                         <button class="btn btn-warning"
-                                                                title="{{ __('Редагувати') }}"
+                                                                title="{{ __('admin/buttons.edit') }}"
                                                                 type="button">
                                                             <i class="fas fa-pen"></i>
                                                         </button>
                                                     </a>
                                                     <button class="btn btn-danger"
-                                                            title="{{ __('Видалити') }}"
+                                                            title="{{ __('admin/buttons.delete') }}"
                                                             onclick="return confirm('Ви впевнені, що хотете видалити цей товар?')"
                                                             type="submit">
                                                         <i class="fas fa-solid fa-trash"></i>

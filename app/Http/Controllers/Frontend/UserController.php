@@ -20,9 +20,10 @@ class UserController extends Controller
     /**
      * Display a listing of the Users.
      *
+     * @param $locale
      * @return Application|Factory|View
      */
-    public function index(): Application|Factory|View
+    public function index($locale): Application|Factory|View
     {
         $users = User::paginate(25);
 
@@ -32,9 +33,10 @@ class UserController extends Controller
     /**
      * Show the form for creating a new User.
      *
+     * @param $locale
      * @return Application|Factory|View
      */
-    public function create(): View|Factory|Application
+    public function create($locale): View|Factory|Application
     {
         $roles = Role::all();
 
@@ -44,10 +46,11 @@ class UserController extends Controller
     /**
      * Store a newly created User in storage.
      *
+     * @param $locale
      * @param UserStoreRequest $request
      * @return RedirectResponse
      */
-    public function store(UserStoreRequest $request): RedirectResponse
+    public function store($locale, UserStoreRequest $request): RedirectResponse
     {
         $data = $request->validated();
 
@@ -59,16 +62,17 @@ class UserController extends Controller
 
         $user->roles()->attach($data['roles']);
 
-        return redirect()->route('admin.users.index');
+        return redirect()->route('admin.users.index', app()->getLocale());
     }
 
     /**
      * Display the specified User.
      *
+     * @param $locale
      * @param User $user
      * @return Application|Factory|View
      */
-    public function show(User $user): View|Factory|Application
+    public function show($locale, User $user): View|Factory|Application
     {
         $orders = $user->orders;
 
@@ -81,10 +85,11 @@ class UserController extends Controller
     /**
      * Show the form for editing the specified User.
      *
+     * @param $locale
      * @param User $user
      * @return Application|Factory|View
      */
-    public function edit(User $user): View|Factory|Application
+    public function edit($locale, User $user): View|Factory|Application
     {
         $roles = Role::all();
 
@@ -97,27 +102,29 @@ class UserController extends Controller
     /**
      * Update the specified User in storage.
      *
+     * @param $locale
      * @param UserUpdateRequest $request
      * @param User $user
      * @return RedirectResponse
      */
-    public function update(UserUpdateRequest $request, User $user): RedirectResponse
+    public function update($locale, UserUpdateRequest $request, User $user): RedirectResponse
     {
         $input = $request->validated();
 
         $user->fill($input)->save();
         $user->roles()->sync($input['roles']);
 
-        return redirect()->route('admin.users.index');
+        return redirect()->route('admin.users.index', app()->getLocale());
     }
 
     /**
      * Remove the specified User from storage.
      *
+     * @param $locale
      * @param User $user
      * @return RedirectResponse
      */
-    public function destroy(User $user): RedirectResponse
+    public function destroy($locale, User $user): RedirectResponse
     {
         if (auth()->user()->id === $user->id || $user->id === 1) {
             return redirect()->route('admin.users.index')->with('error', 'Відмовлено у доступі');
@@ -129,6 +136,6 @@ class UserController extends Controller
 
         $user->delete();
 
-        return redirect()->route('admin.users.index');
+        return redirect()->back();
     }
 }

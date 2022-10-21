@@ -19,9 +19,10 @@ class ProductController extends Controller
     /**
      * Display a listing of the Products.
      *
+     * @param $locale
      * @return Application|Factory|View
      */
-    public function index(): View|Factory|Application
+    public function index($locale): View|Factory|Application
     {
         $products = Product::paginate(25);
 
@@ -31,9 +32,10 @@ class ProductController extends Controller
     /**
      * Show the form for creating a new Product.
      *
+     * @param $locale
      * @return Application|Factory|View
      */
-    public function create(): View|Factory|Application
+    public function create($locale): View|Factory|Application
     {
         return view('admin.products.create');
     }
@@ -41,29 +43,25 @@ class ProductController extends Controller
     /**
      * Store a newly created Product in storage.
      *
+     * @param $locale
      * @param ProductStoreRequest $request
      * @return RedirectResponse
      */
-    public function store(ProductStoreRequest $request): RedirectResponse
+    public function store($locale, ProductStoreRequest $request): RedirectResponse
     {
-        $data = $request->validated();
+        Product::create($request->validated());
 
-        Product::create([
-            'title' => $data['title'],
-            'slug'  => Str::slug($data['title']),
-            'price' => $data['price']
-        ]);
-
-        return redirect()->route('admin.products.index');
+        return redirect()->route('admin.products.index', app()->getLocale());
     }
 
     /**
      * Display the specified Product.
      *
+     * @param $locale
      * @param Product $product
      * @return Application|Factory|View
      */
-    public function show(Product $product): View|Factory|Application
+    public function show($locale, Product $product): View|Factory|Application
     {
         return view('admin.products.show', ['product' => $product]);
     }
@@ -71,10 +69,11 @@ class ProductController extends Controller
     /**
      * Show the form for editing the specified Product.
      *
+     * @param $locale
      * @param Product $product
      * @return Application|Factory|View
      */
-    public function edit(Product $product): View|Factory|Application
+    public function edit($locale, Product $product): View|Factory|Application
     {
         return view('admin.products.edit', ['product' => $product]);
     }
@@ -82,35 +81,29 @@ class ProductController extends Controller
     /**
      * Update the specified Product in storage.
      *
+     * @param $locale
      * @param ProductUpdateRequest $request
      * @param Product $product
      * @return RedirectResponse
      */
-    public function update(ProductUpdateRequest $request, Product $product): RedirectResponse
+    public function update($locale, ProductUpdateRequest $request, Product $product): RedirectResponse
     {
-        $data = $request->validated();
+        $product->fill($request->validated())->save();
 
-        $product->fill([
-            'title' => $data['title'],
-            'slug'  => Str::slug($data['title']),
-            'price' => $data['price'],
-        ]);
-
-        $product->save();
-
-        return redirect()->route('admin.products.index');
+        return redirect()->route('admin.products.index', app()->getLocale());
     }
 
     /**
      * Remove the specified Product from storage.
      *
+     * @param $locale
      * @param Product $product
      * @return RedirectResponse
      */
-    public function destroy(Product $product): RedirectResponse
+    public function destroy($locale, Product $product): RedirectResponse
     {
         $product->delete();
 
-        return redirect()->route('admin.products.index');
+        return redirect()->route('admin.products.index', app()->getLocale());
     }
 }

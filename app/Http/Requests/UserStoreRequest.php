@@ -27,7 +27,7 @@ class UserStoreRequest extends FormRequest
         return [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'roles' => ['array', 'exists:roles,id'],
+            'roles' => ['array', 'exists:roles,id', 'required'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ];
     }

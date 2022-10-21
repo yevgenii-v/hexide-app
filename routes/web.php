@@ -19,7 +19,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 // Admin panel
-Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'is_admin'], 'as' => 'admin.'], function () {
+Route::group(['prefix' => '{locale?}/admin', 'where' => ['locale' => '[a-zA-Z]{2}'],
+    'middleware' => ['auth', 'is_admin', 'set_locale'], 'as' => 'admin.'], function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::resource('users', UserController::class);
     Route::resource('orders', OrderController::class);
@@ -35,3 +36,5 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 require __DIR__.'/auth.php';
+
+

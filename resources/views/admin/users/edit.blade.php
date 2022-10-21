@@ -35,7 +35,8 @@
     </nav>
     <!-- /.navbar -->
 
-@include('components.admin.sidebar')
+    <!-- Main Sidebar Container -->
+    @include('components.admin.sidebar')
 
 <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
@@ -44,16 +45,16 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1 class="m-0">{{ __('Користувачі') }}</h1>
+                        <h1 class="m-0">{{ __('admin/users.user.edit') }}</h1>
                     </div><!-- /.col -->
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item">
-                                <a href="{{ route('admin.users.index') }}">
-                                    {{ __('Користувачі') }}
+                                <a href="{{ route('admin.users.index', app()->getLocale()) }}">
+                                    {{ __('admin/users.users') }}
                                 </a>
                             </li>
-                            <li class="breadcrumb-item active">Редагування</li>
+                            <li class="breadcrumb-item active">{{ __('admin/buttons.edit') }}</li>
                         </ol>
                     </div><!-- /.col -->
                 </div><!-- /.row -->
@@ -77,17 +78,17 @@
                         @endif
                         <div class="card">
                             <div class="card-header">
-                                <h3 class="card-title">{{ __('Користувач ') . $user->name }}</h3>
+                                <h3 class="card-title">{{ __('admin/users.user') . $user->name }}</h3>
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body">
-                                <form action="{{ route('admin.users.update', $user->id) }}" method="POST">
+                                <form action="{{ route('admin.users.update', [app()->getLocale(), $user->id]) }}" method="POST">
                                 @method('PATCH')
                                 @csrf
                                     <div class="input-group mb-3">
                                         <input type="text"
                                                class="form-control"
-                                               placeholder="{{ __('Ім\'я') }}"
+                                               placeholder="{{ __('admin/users.name') }}"
                                                value="{{ $user->name }}"
                                                name="name"
                                         >
@@ -100,17 +101,17 @@
                                                name="email"
                                         >
                                     </div>
-                                    <label for="roles">{{ __('Ролі') }}</label>
+                                    <label for="roles">{{ __('admin/users.roles') }}</label>
                                     <br>
                                     @foreach($roles as $role)
                                         <input type="checkbox"
                                                name="roles[]" {{ $user->hasAnyRole($role->id) ? 'checked' : '' }}
                                                value="{{ $role->id }}"
                                         >
-                                        <span> {{ $role->name }} &nbsp</span>
+                                        <span> {{ __($role->{'name_'.app()->getLocale()}) }} &nbsp</span>
                                     @endforeach
                                     <br><br>
-                                    <button type="submit" class=" align-end btn btn-primary">{{ __('Оновити') }}</button>
+                                    <button type="submit" class=" align-end btn btn-primary">{{ __('admin/buttons.update') }}</button>
                                 </form>
                             </div>
                             <!-- /.card-body -->
