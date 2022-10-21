@@ -23,6 +23,7 @@ class UsersTableSeeder extends Seeder
         Schema::enableForeignKeyConstraints();
 
         $adminRole = Role::where('id', Role::IS_ADMIN)->first();
+        $userRole = Role::where('id', Role::IS_USER)->first();
 
         $admin = User::create([
             'name'      => 'Admin',
@@ -37,5 +38,7 @@ class UsersTableSeeder extends Seeder
             'email'     => 'u@u.loc',
             'password'  => Hash::make('secret'),
         ]);
+
+        $userRole->roles()->attach($userRole);
     }
 }
