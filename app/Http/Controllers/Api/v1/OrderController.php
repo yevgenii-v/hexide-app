@@ -6,13 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\OrderStoreRequest;
 use App\Http\Resources\OrderResource;
 use App\Models\Order;
-use App\Models\User;
-use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
-use Illuminate\Http\Response;
-use JetBrains\PhpStorm\Pure;
 
 class OrderController extends Controller
 {
@@ -64,7 +59,6 @@ class OrderController extends Controller
      * @param Order $order
      * @return OrderResource
      */
-    #[Pure]
     public function show(Order $order): OrderResource
     {
         if ($this->user->id !== $order->user_id)
@@ -73,28 +67,5 @@ class OrderController extends Controller
         }
 
         return new OrderResource($order);
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param Order $order
-     * @return Response
-     */
-    public function update(Request $request, Order $order)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param Order $order
-     * @return Response
-     */
-    public function destroy(Order $order)
-    {
-        //
     }
 }
